@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configuration Hydro-Québec",
+        "description": "Paramétrez les seuils pour la gestion des pointes.",
+        "data": {
+          "api_url": "URL de l'API Hydro-Québec",
+          "night_start": "Début mode nuit (HH:MM)",
+          "night_end": "Fin mode nuit (HH:MM)",
+          "overheat_hours": "Heures de préchauffage (avant la pointe)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Échec de connexion"
+    },
+    "abort": {
+      "already_configured": "L'appareil est déjà configuré"
+    }
+  }
+}

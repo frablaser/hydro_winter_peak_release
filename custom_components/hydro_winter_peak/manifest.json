@@ -1,0 +1,12 @@
+{
+  "domain": "hydro_winter_peak",
+  "name": "Hydro-Québec Pointes Hivernales",
+  "icon": "mdi:snowflake",
+  "version": "1.0.0",
+  "config_flow": true,
+  "requirements": [],
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/ton_repo/issues",
+  "codeowners": [],
+  "documentation": "https://github.com/ton_repo"
+}
