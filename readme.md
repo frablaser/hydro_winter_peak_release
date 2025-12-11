@@ -27,16 +27,17 @@ Elle interroge l'API de données ouvertes d'Hydro-Québec et gère intelligemmen
 1.  Assurez-vous d'avoir [HACS](https://hacs.xyz/) installé.
     
 2.  Allez dans **HACS** > **Intégrations**.
+![Ajout intégration](https://raw.githubusercontent.com/frablaser/hydro_winter_peak_release/refs/heads/main/AjoutIntergration.jpg)
     
-3.  Cliquez sur le menu (3 points en haut à droite) > **Dépôts personnalisés**.
+4.  Cliquez sur le menu (3 points en haut à droite) > **Dépôts personnalisés**.
     
-4.  Ajoutez l'URL de ce dépôt : `https://github.com/TON_USER_GITHUB/hydro_winter_peak` (Remplace par ton vrai lien).
+5.  Ajoutez l'URL de ce dépôt : `https://github.com/frablaser/hydro_winter_peak_release` 
+   
+6.  Catégorie : **Intégration**.
     
-5.  Catégorie : **Intégration**.
+7.  Cliquez sur **Installer**.
     
-6.  Cliquez sur **Installer**.
-    
-7.  Redémarrez Home Assistant.
+8.  Redémarrez Home Assistant.
     
 
 ### Installation Manuelle
@@ -44,21 +45,12 @@ Elle interroge l'API de données ouvertes d'Hydro-Québec et gère intelligemmen
 1.  Téléchargez le dossier `custom_components/hydro_winter_peak` depuis ce dépôt.
     
 2.  Copiez ce dossier dans votre répertoire `/config/custom_components/` sur votre instance Home Assistant.
+
+3.  Rechercher l'intégration :
+	![enter image description here](https://raw.githubusercontent.com/frablaser/hydro_winter_peak_release/refs/heads/main/AjoutIntegrationSel.jpg)
     
-3.  Redémarrez Home Assistant.
+4.  Redémarrez Home Assistant.
 
-
-## Service Web Hydro-Québec (URL)
-Les services Web (API) d'Hydro-Québec se trouvent sur: https://donnees.hydroquebec.com/pages/accueil/
-
-Pour les Pointes Hivernales: https://donnees.hydroquebec.com/explore/dataset/evenements-pointe/information/
-
-Les filtres de l'API Huwise Explore v2:  https://help.opendatasoft.com/apis/ods-explore-v2/#tag/Dataset/operation/getRecords
-
-L'URL que j'ai créée, va filtrer à partir de maintenant les présentes et prochaines pointes hivernales, cela à le grand avantage à réduire énormément la quantité de données à recevoir  et à ne voir que ce qui nous importe vraiment:
-https://donnees.hydroquebec.com/api/explore/v2.1/catalog/datasets/evenements-pointe/records?where=datedebut%3E%3Dnow(hours%3D-2)%20or%20datefin%3E%3Dnow(hours%3D-0.5)&order_by=datedebut&limit=20&refine=offre%3ATPC-DPC&refine=secteurclient%3AResidentiel&timezone=America%2FNew_York
-
-Ceci nous donnera seulement les offres : **TPC-DPC** (Tarif Flex pour la clientèle au tarif D), il vous est possible de modifier votre url pour voir toutes autres offres. 
 
 
 
@@ -67,19 +59,39 @@ Ceci nous donnera seulement les offres : **TPC-DPC** (Tarif Flex pour la client�
 1.  Allez dans **Paramètres** > **Appareils et services**.
     
 2.  Cliquez sur **Ajouter une intégration**.
+    ![enter image description here](https://github.com/frablaser/hydro_winter_peak_release/blob/main/AjoutIntergration.jpg?raw=true)
     
-3.  Recherchez **Hydro-Québec Hiver**.
+3.  Recherchez **Hydro-Québec**.
+    ![enter image description here](https://github.com/frablaser/hydro_winter_peak_release/blob/main/AjoutIntegrationSel.jpg?raw=true)
     
-4.  Configurez vos préférences :
-    
-    -   **URL de l'API :** (Laisser par défaut, sauf changement d'Hydro).
-        
-    -   **Début mode nuit :** (Ex: `23:00`) Heure de baisse de température si aucune pointe.
-        
-    -   **Fin mode nuit :** (Ex: `06:00`).
-        
-    -   **Heures de préchauffage :** (Ex: `2`) Nombre d'heures avant le début d'une pointe pour surchauffer la maison.
-        
+
+![enter image description here](https://github.com/frablaser/hydro_winter_peak_release/blob/main/AjoutIntegrationOptions.jpg?raw=true)
+
+-   **URL de l'API :** (Laisser par défaut, sauf si vous avez un autre forfait que le Flex-D/TPC-DPC d'Hydro).
+
+ -  **L'heure de coucher à Low (basse température)** : Le chauffage de nuit en mode ECO "Low" pour dormir plus au frais.
+ 
+ -  **L'heure de lever (revenir à confort)** : Le chauffage reprendra à normalement à "***Confort***" cette heure.
+
+ - **Préchauffage** : Le nombre d'heure pour préchauffer la maison avant une pointe hivernale et cesser passer à l'état "***Low***" (économique) pendant la pointe.
+
+
+
+## Service Web Hydro-Québec (URL)
+Les services Web (API) d'Hydro-Québec se trouvent sur: https://donnees.hydroquebec.com/pages/accueil/
+
+Pour les Pointes Hivernales: https://donnees.hydroquebec.com/explore/dataset/evenements-pointe/information/
+
+Les filtres de l'API Huwise Explore v2 utilisés par le service web d'HQ:  https://help.opendatasoft.com/apis/ods-explore-v2/#tag/Dataset/operation/getRecords
+
+![HQ Filters](https://raw.githubusercontent.com/frablaser/hydro_winter_peak_release/refs/heads/main/HQFiltersjpg.jpg)
+
+L'URL que j'ai créée, va filtrer à partir de maintenant les présentes et prochaines pointes hivernales, cela à le grand avantage à réduire énormément la quantité de données à recevoir  et à ne voir que ce qui nous importe vraiment:
+https://donnees.hydroquebec.com/api/explore/v2.1/catalog/datasets/evenements-pointe/records?where=datedebut%3E%3Dnow(hours%3D-2)%20or%20datefin%3E%3Dnow(hours%3D-0.5)&order_by=datedebut&limit=20&refine=offre%3ATPC-DPC&refine=secteurclient%3AResidentiel&timezone=America%2FNew_York
+
+Ceci nous donnera seulement les offres : **TPC-DPC** (Tarif Flex pour la clientèle au tarif D), il vous est possible de modifier votre url pour voir toutes autres offres. 
+
+
 
 ## 🌡️ Entités et États
 
@@ -181,6 +193,17 @@ action:
 
 ```
 
+## 📇 Carte par défaut (Dashboard)
+
+![Carte par défaut](https://github.com/frablaser/hydro_winter_peak_release/blob/main/DirectInt%C3%A9gration.jpg?raw=true)
+La carte par défaut est la plus simple à mettre en oeuvre... Il suffit d'aller dans : 
+
+ - ***Paramètres*** 
+ - ***Appareils et Services*** 
+ - L'intégration : ***Hydro-Québec Pointes Hivernales***
+ - Cliquer le lien : ***Ajouter au tableau de bord***
+	 ![Ajout de la carte](https://github.com/frablaser/hydro_winter_peak_release/blob/main/Int%C3%A9grationPanneau.jpg?raw=true)
+
 ## 🎨 Carte Lovelace (Dashboard)
 
 Pour un affichage visuel de l'état (nécessite une carte de type `Markdown`) :
@@ -189,31 +212,36 @@ YAML
 
 ```
 type: markdown
-title: ❄️ Hydro-Québec Hiver
-content: >-
+title: Hydro Québec Pointes Hivenales
+content: |-
   {% set etat = states('sensor.hydro_quebec_hiver_etat') %}
+  {% set debut = states('sensor.hydro_quebec_hiver_debut_pointe') %}
+  {% set fin = states('sensor.hydro_quebec_hiver_fin_pointe') %}
   {% set prochain = states('sensor.hydro_quebec_hiver_prochaine_pointe') %}
-
   <center>
   {% if etat == 'Confort' %}
-    <ha-icon icon="mdi:sofa" style="color: green; --mdc-icon-size: 60px;"></ha-icon>
-    <h2 style="color: green;">MODE CONFORT</h2>
-    Chauffage normal.
+    <font color="green"><ha-icon icon="mdi:sofa" style="color: green; --mdc-icon-size: 60px;"></ha-icon>
+    <h1 style="color: green;">MODE CONFORT</h1></font>
+    Chauffage normal autorisé.
   {% elif etat == 'OverHeat' %}
-    <ha-icon icon="mdi:fire" style="color: red; --mdc-icon-size: 60px;"></ha-icon>
-    <h2 style="color: red;">PRÉCHAUFFAGE</h2>
-    Stockage de chaleur en cours !
+    <font color="red"><ha-icon icon="mdi:fire" style="color: red; --mdc-icon-size: 60px;"></ha-icon>
+    <h1 style="color: red;">PRÉCHAUFFAGE</h1></font>
+    Augmentation de la consigne !
   {% elif etat == 'Low' %}
-    <ha-icon icon="mdi:snowflake" style="color: deepskyblue; --mdc-icon-size: 60px;"></ha-icon>
-    <h2 style="color: deepskyblue;">RÉDUCTION (LOW)</h2>
-    Pointe active ou Nuit.
+    <font color="blue"><ha-icon icon="mdi:snowflake" style="color: deepskyblue; --mdc-icon-size: 60px;"></ha-icon>
+    <h1 style="color: deepskyblue;">RÉDUCTION (LOW)</h1></font>
+    <b>Pointe ou Nuit :</b> Consigne réduite.
   {% else %}
-    <h2>{{ etat }}</h2>
+    <h1>{{ etat }}</h1>
   {% endif %}
-  </center>
-  
-  ---
+  ----------------------------------------------
+  {% if etat != 'Confort' and debut not in ['unknown', 'unavailable', 'None'] %}
+  **⚠️ Événement en cours :**
+  * **Fin prévue :** {{ as_timestamp(fin) | timestamp_custom('%H:%M', true) }}
+  {% endif %}
   **📅 Prochain événement :** {{ prochain }}
+  </center>
+
 
 ```
 
