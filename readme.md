@@ -207,6 +207,10 @@ La carte par défaut est la plus simple à mettre en oeuvre... Il suffit d'aller
 ## 🎨 Carte Lovelace (Dashboard)
 
 Pour un affichage visuel de l'état (nécessite une carte de type `Markdown`) :
+![Confort Markdown](https://github.com/frablaser/hydro_winter_peak_release/blob/main/MarkdownConfortW.jpg?raw=true)
+![Low markdown](https://github.com/frablaser/hydro_winter_peak_release/blob/main/MarkdownLowW.jpg?raw=true)
+![OverHeat Markdown](https://github.com/frablaser/hydro_winter_peak_release/blob/main/MarkdownOverHeatW.jpg?raw=true)
+
 
 YAML
 
@@ -244,6 +248,7 @@ content: |-
 
 
 ```
+
 
 ## ⚠️ Avertissement
 
