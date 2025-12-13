@@ -26,6 +26,7 @@ from .const import (
 _LOGGER = logging.getLogger(__name__)
 
 def get_schema(defaults: dict = None):
+    """Génère le schéma du formulaire avec des valeurs par défaut."""
     if defaults is None:
         defaults = {}
     return vol.Schema(
@@ -45,11 +46,13 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
+        # On passe l'argument normalement
         return OptionsFlowHandler(config_entry)
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None) -> FlowResult:
         if user_input is not None:
             return self.async_create_entry(title="Hydro-Québec Hiver", data=user_input)
+
         return self.async_show_form(step_id="user", data_schema=get_schema())
 
 
@@ -58,17 +61,25 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialisation."""
-        # ON REMET CETTE LIGNE (C'est elle qui manquait et causait l'erreur 500)
-        self.config_entry = config_entry
+        # TRUC: On accepte l'argument 'config_entry' pour ne pas faire planter l'appel,
+        # mais on ne tente PAS de le stocker dans self.config_entry car c'est interdit (read-only).
+        pass
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None) -> FlowResult:
         """Gère l'affichage du formulaire d'options."""
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
-        # On récupère la config actuelle pour pré-remplir
-        # C'est ici que ça plantait car self.config_entry n'existait pas
-        current_config = {**self.config_entry.data, **self.config_entry.options}
+        # ASTUCE DE SIOUX :
+        # Au lieu d'utiliser self.config_entry (qui plante), on va le chercher via l'ID
+        # self.handler contient l'ID de l'entrée qu'on est en train de modifier.
+        entry = self.hass.config_entries.async_get_entry(self.handler)
+        
+        # Maintenant on peut lire les données en toute sécurité
+        data = entry.data or {}
+        options = entry.options or {}
+        
+        current_config = {**data, **options}
         
         return self.async_show_form(
             step_id="init",
