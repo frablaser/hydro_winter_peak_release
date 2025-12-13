@@ -2,7 +2,7 @@
   "domain": "hydro_winter_peak",
   "name": "Hydro-Québec Pointes Hivernales",
   "icon": "mdi:snowflake",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "config_flow": true,
   "requirements": [],
   "iot_class": "cloud_polling",
