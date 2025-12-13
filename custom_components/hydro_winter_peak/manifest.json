@@ -6,7 +6,7 @@
   "config_flow": true,
   "requirements": [],
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/ton_repo/issues",
+  "issue_tracker": "https://github.com/frablaser/hydro_winter_peak_release/issues",
   "codeowners": [],
-  "documentation": "https://github.com/ton_repo"
+  "documentation": "https://github.com/frablaser/hydro_winter_peak_release"
 }
